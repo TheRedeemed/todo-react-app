@@ -1,9 +1,12 @@
 import React from 'react'
 
-const Todo = () => {
+const Todo = ({...props}) => {
+    const { description, done, targetDate } = props
     return(
         <div>
-            <h1>Todo List</h1>
+            <span>{description} | </span>
+            <span>{done.toString()} | </span>
+            <span>{targetDate.toString()}</span>
         </div>
     )
 }

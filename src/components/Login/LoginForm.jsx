@@ -20,7 +20,7 @@ const LoginForm = ({...props}) => {
                     const {username, password} = values
                     setTimeout(() => setSubmitting(false), 3 * 1000)
                     //Temporary login validation
-                    username !== 'Abdoul' || password !== 'password' ? setLoginErrorMessage('Invalid Credentials') : props.history.push(`/welcome/${username}`)
+                    username !== 'Abdoul' || password !== 'password' ? setLoginErrorMessage('Invalid Credentials') : props.history.push(`/home/${username}`)
                 }}
             >
                 {
