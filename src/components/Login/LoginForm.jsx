@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import { Formik, Form } from 'formik'
+import Card from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 import * as Yup from 'yup'
 
 const loginValidationSchema = Yup.object().shape({
@@ -25,56 +28,62 @@ const LoginForm = ({...props}) => {
             >
                 {
                     props => {
-                        const { values, errors, touched, dirty, isSubmitting, handleReset, handleChange, handleBlur } = props
+                        const { values, errors, touched, dirty, isSubmitting, isValid, handleReset, handleChange, handleBlur } = props
 
                         return (
                             <>
                             {loginErrorMessage && <div style={{ color : 'red'}}>{loginErrorMessage}</div>}
                             <Form>
-                                <div>
-                                    <label htmlFor='username'>Username</label>
-                                    <div>
-                                        <input
-                                            name='username'
-                                            type='text'
-                                            placeholder='Enter Username'
-                                            value={values.username}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                        />
-                                        {errors.username && touched.username && (<div style={{ color : 'red' }}>{errors.username}</div>)}
-                                    </div>
-                                </div>
+                                <Card>
+
+                                <TextField
+                                    label='Username'
+                                    name='username'
+                                    type='text'
+                                    placeholder='Enter Username Here'
+                                    value={values.username}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={errors.username && touched.username}
+                                    helperText={errors.username && touched.username && (<span style={{ color : 'red' }}>{errors.username}</span>)}
+                                />
+
+                                <br />
+
+                                <TextField
+                                    label='Password' 
+                                    name='password'
+                                    type='password'
+                                    placeholder='Enter Password Here'
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={errors.password && touched.password}
+                                    helperText={errors.password && touched.password && (<span style={{ color : 'red' }}>{errors.password}</span>)}
+                                />
 
                                 <div>
-                                    <label htmlFor='password'>Password</label>
-                                    <div>
-                                        <input
-                                            name='password'
-                                            type='password'
-                                            placeholder='Enter Password'
-                                            value={values.password}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                        />
-                                        {errors.password && touched.password && (<div style={{ color : 'red' }}>{errors.password}</div>)}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <input
-                                        type='reset'
-                                        value='Reset'
+                                    <Button
+                                        variant='contained'
+                                        size='small'
                                         onClick={handleReset}
                                         disabled={!dirty || isSubmitting}
-                                    />
+                                    >
+                                        Cancel
+                                    </Button>
                                     &nbsp;
-                                    <input
-                                        type='submit'
-                                        value='Login'
-                                        disabled={isSubmitting}
-                                    />
+                                    &nbsp;
+                                    <Button 
+                                        variant='contained' 
+                                        size='small'
+                                        color='primary' 
+                                        type='submit' 
+                                        disabled={!isValid || isSubmitting}
+                                    >
+                                        Login
+                                    </Button>
                                 </div>
+                                </Card>
                             </Form>
                         </>
                         )

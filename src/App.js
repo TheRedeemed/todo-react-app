@@ -12,14 +12,14 @@ import Footer from './components/AppFooter/Footer'
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <Switch>
         <Route exact path='/' component={LoginForm} />
         <Route path='/home/:username' component={Home} />
         <Route path='/todos' component={TodoList} />
         <Route component={ErrorPage} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
