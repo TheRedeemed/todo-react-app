@@ -30,11 +30,21 @@ const LoginForm = ({...props}) => {
             >
                 {
                     props => {
-                        const { values, errors, touched, dirty, isSubmitting, isValid, handleReset, handleChange, handleBlur } = props
+                        const { 
+                            values, 
+                            errors, 
+                            touched, 
+                            // dirty, 
+                            isSubmitting, 
+                            isValid, 
+                            // handleReset, 
+                            handleChange, 
+                            handleBlur 
+                        } = props
 
                         return (
                             <>
-                            {loginErrorMessage && <div style={{ color : 'red'}}>{loginErrorMessage}</div>}
+                            {loginErrorMessage && <div style={{ color : 'red', marginBottom: '20px'}}>{loginErrorMessage}</div>}
                             <Form className='loginForm'>
                                 <TextField
                                     label='Username'
