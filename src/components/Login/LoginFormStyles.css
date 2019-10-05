@@ -1,0 +1,25 @@
+.loginFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 565px;
+}
+
+.loginFormCardWrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background: #f0f8ff !important;
+    width: 35%;
+    padding: 50px 0px;
+}
+
+.loginForm {
+    display: flex;
+    align-items: baseline;
+}
+
+.loginFormField {
+    margin-right: 15px !important;
+    width: 250px
+}

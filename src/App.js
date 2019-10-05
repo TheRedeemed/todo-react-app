@@ -11,7 +11,8 @@ import Footer from './components/AppFooter/Footer'
 
 function App() {
   return (
-    <div className="App">
+    // <div className="App">
+    <div>
       {/* <Header /> */}
       <Switch>
         <Route exact path='/' component={LoginForm} />

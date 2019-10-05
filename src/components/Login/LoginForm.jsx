@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import * as Yup from 'yup'
+import './LoginFormStyles.css'
 
 const loginValidationSchema = Yup.object().shape({
     username: Yup.string().min(3, 'Username must be at least 3 characters').required('Username is required'),
@@ -13,8 +14,9 @@ const loginValidationSchema = Yup.object().shape({
 const LoginForm = ({...props}) => {
     const [loginErrorMessage, setLoginErrorMessage] = useState('')
     return (
-        <div>
-            <h1>Login</h1>
+        <div className='loginFormContainer'>
+            <Card className='loginFormCardWrapper'>
+            <h1>MyTODO</h1>
 
             <Formik
                 initialValues={{ username: '', password: '' }}
@@ -33,9 +35,7 @@ const LoginForm = ({...props}) => {
                         return (
                             <>
                             {loginErrorMessage && <div style={{ color : 'red'}}>{loginErrorMessage}</div>}
-                            <Form>
-                                <Card>
-
+                            <Form className='loginForm'>
                                 <TextField
                                     label='Username'
                                     name='username'
@@ -46,10 +46,8 @@ const LoginForm = ({...props}) => {
                                     onBlur={handleBlur}
                                     error={errors.username && touched.username}
                                     helperText={errors.username && touched.username && (<span style={{ color : 'red' }}>{errors.username}</span>)}
+                                    className='loginFormField'
                                 />
-
-                                <br />
-
                                 <TextField
                                     label='Password' 
                                     name='password'
@@ -60,36 +58,36 @@ const LoginForm = ({...props}) => {
                                     onBlur={handleBlur}
                                     error={errors.password && touched.password}
                                     helperText={errors.password && touched.password && (<span style={{ color : 'red' }}>{errors.password}</span>)}
+                                    className='loginFormField'
                                 />
 
-                                <div>
-                                    <Button
+                                {/* <Button
                                         variant='contained'
                                         size='small'
                                         onClick={handleReset}
                                         disabled={!dirty || isSubmitting}
                                     >
-                                        Cancel
+                                        Reset
                                     </Button>
                                     &nbsp;
-                                    &nbsp;
-                                    <Button 
+                                    &nbsp; */}
+
+                                <Button 
                                         variant='contained' 
                                         size='small'
                                         color='primary' 
                                         type='submit' 
                                         disabled={!isValid || isSubmitting}
-                                    >
-                                        Login
-                                    </Button>
-                                </div>
-                                </Card>
+                                >
+                                    Submit
+                                </Button>
                             </Form>
                         </>
                         )
                     }
                 }
             </Formik>
+            </Card>
         </div>
     )
 }
