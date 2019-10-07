@@ -10,6 +10,7 @@ import Header from './components/AppHeader/Header'
 // import Footer from './components/AppFooter/Footer'
 import LogoutPage from './components/Logout/LogoutPage'
 // import AppHelpers from './components/Utils/AppHelpers'
+import AuthenticatedRoute from './components/Login/AuthenticatedRoute'
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
       <Header />
       <Switch>
         <Route exact path='/' component={LoginForm} />
-        <Route path='/home/:username' component={Home} />
-        <Route path='/logout' component={LogoutPage} />
+        <AuthenticatedRoute path='/home/:username' component={Home} />
+        <AuthenticatedRoute path='/logout' component={LogoutPage} />
         {/* <Route path='/todos' component={TodoList} /> */}
         <Route component={ErrorPage} />
       </Switch>
