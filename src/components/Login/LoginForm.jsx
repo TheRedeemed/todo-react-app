@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import * as Yup from 'yup'
 import './LoginFormStyles.css'
+import LoginHelpers from './LoginHelpers'
 
 const loginValidationSchema = Yup.object().shape({
     username: Yup.string().min(3, 'Username must be at least 3 characters').required('Username is required'),
@@ -16,7 +17,7 @@ const LoginForm = ({...props}) => {
     return (
         <div className='loginFormContainer'>
             <Card className='loginFormCardWrapper'>
-            <h1>MyTODO</h1>
+            <h1>LOGIN</h1>
 
             <Formik
                 initialValues={{ username: '', password: '' }}
@@ -24,8 +25,7 @@ const LoginForm = ({...props}) => {
                 onSubmit={(values, {setSubmitting}) => {
                     const {username, password} = values
                     setTimeout(() => setSubmitting(false), 3 * 1000)
-                    //Temporary login validation
-                    username !== 'Abdoul' || password !== 'password' ? setLoginErrorMessage('Invalid Credentials') : props.history.push(`/home/${username}`)
+                    LoginHelpers.isUserLoginValid(username, password) ? props.history.push(`/home/${username}`) : setLoginErrorMessage('Invalid Credentials')
                 }}
             >
                 {
