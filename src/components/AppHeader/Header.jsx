@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import UserProfileMenu from '../UserProfile/UserProfileMenu'
 import AppHelpers from '../Utils/AppHelpers'
+import { withRouter } from 'react-router-dom'
 
 const Header = () => {
     const isUserLoggedIn = AppHelpers.isUserLoggedIn()
-    const [userInfo, setuserInfo] = useState(isUserLoggedIn)
-
-    useEffect(() => setuserInfo(isUserLoggedIn), [isUserLoggedIn])
 
     return(
         <AppBar position='static'>
@@ -18,10 +16,10 @@ const Header = () => {
                 justifyContent: 'space-between'
             }}>
                 <Typography variant='h6'>MY TODO</Typography>
-                {userInfo && <UserProfileMenu userInfo={userInfo} />}
+                {isUserLoggedIn && <UserProfileMenu userInfo={isUserLoggedIn} />}
             </Toolbar>
         </AppBar>
     )
 }
 
-export default Header
+export default withRouter(Header)
