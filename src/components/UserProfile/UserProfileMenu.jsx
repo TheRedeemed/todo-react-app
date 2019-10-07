@@ -2,10 +2,10 @@ import React, {useState} from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { NavLink } from 'react-router-dom'
 
 const UserProfileMenu = ({...props}) => {
-    const { userInfo } = props
+    console.log(props)
+    const { userInfo, onLogoutClick } = props
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
@@ -30,9 +30,7 @@ const UserProfileMenu = ({...props}) => {
             onClose={handleUserProfileMenuClose}
         >
             <MenuItem>{userInfo}</MenuItem>
-            <NavLink to={'/logout'} style={{ textDecorationLine: 'none' }}>
-                <MenuItem>Logout</MenuItem>
-            </NavLink>
+            <MenuItem onClick={() => onLogoutClick()}>Logout</MenuItem>
         </Menu>
         </>
     )

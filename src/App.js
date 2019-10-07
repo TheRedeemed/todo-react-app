@@ -19,7 +19,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={LoginForm} />
         <AuthenticatedRoute path='/home/:username' component={Home} />
-        <AuthenticatedRoute path='/logout' component={LogoutPage} />
+        <Route path='/logout' component={LogoutPage} />
         {/* <Route path='/todos' component={TodoList} /> */}
         <Route component={ErrorPage} />
       </Switch>
