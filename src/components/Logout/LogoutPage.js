@@ -3,11 +3,16 @@ import { NavLink } from 'react-router-dom'
 
 const LogoutPage = () => {
     return(
-        <div>
-            <p>You have been successfully logged out...</p>
-            <p>To login again. Click
+        <div style={{
+            display: 'flex',
+            flexFlow: 'column',
+            alignItems: 'center',
+            marginTop: '50px'
+        }}>
+            <h2>You have been successfully logged out...</h2>
+            <h2>To login again. Click
                 <NavLink to='/' style={{marginLeft:'5px'}}>Here</NavLink>
-            </p>
+            </h2>
         </div>
     )
 }
