@@ -4,7 +4,6 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 
 const UserProfileMenu = ({...props}) => {
-    console.log(props)
     const { userInfo, onLogoutClick } = props
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)

@@ -8,7 +8,6 @@ import LogoutHelpers from '../Logout/LogoutHelpers'
 import { withRouter } from 'react-router-dom'
 
 const Header = ({...props}) => {
-    console.log(props)
     const isUserLoggedIn = AppHelpers.isUserLoggedIn()
     
     const handleLogoutClick = () => {
