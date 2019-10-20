@@ -1,51 +1,24 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Todo from './Todo'
+import AppCircularLoader from '../Utils/AppCicularLoader'
+import TodoDataService from '../Api/TodoDataService'
+import AuthenticationService from '../Services/AuthenticationService'
 
 const TodoList = () => {
-    const todoList = [
-        {
-            id: 1,
-            description: 'Learn React',
-            done: false,
-            targetDate: new Date()
-        },
-        {
-            id: 2,
-            description: 'Learn Web Page Styling with grid and flexblox',
-            done: false,
-            targetDate: new Date()
-        },
-        {
-            id: 3,
-            description: 'Learn Java',
-            done: false,
-            targetDate: new Date()
-        },
-        {
-            id: 4,
-            description: 'Learn Groovy',
-            done: false,
-            targetDate: new Date()
-        },
-        {
-            id: 5,
-            description: 'Learn Spring Boot',
-            done: false,
-            targetDate: new Date()
-        },
-        {
-            id: 6,
-            description: 'Learn Database and SQL',
-            done: false,
-            targetDate: new Date()
-        },
-        {
-            id: 7,
-            description: 'Learn Hibernate',
-            done: false,
-            targetDate: new Date()
-        }
-    ]
+    const [loadingMessage, setLoadingMessage] = useState(true)
+    const [todoList, setTodoList] = useState([])
+
+    const getTodoListByUsername = (username) => {
+        TodoDataService.getAllTodosByUsername(username)
+                        .then(response => {
+                            setLoadingMessage(false) 
+                            setTodoList([...response.data])
+                        })
+                        .catch(error => console.log(error.response.data.message))
+    }
+
+    useEffect(() => getTodoListByUsername(AuthenticationService.getLoggedInUserName()), [])
+
     return(
         <div style={{
             display: 'flex',
@@ -57,6 +30,15 @@ const TodoList = () => {
                 flexFlow: 'wrap'
             }}> 
                 {
+                    loadingMessage ?
+                    <span style={{
+                            display: 'flex',
+                            flexFlow: 'column',
+                            alignItems: 'center',
+                            width: '100%'}}>
+                        <AppCircularLoader loadingMessage = 'Loading Todos from the server'/>
+                    </span>
+                    :
                     todoList.map(todo => <Todo 
                                             key={todo.id}
                                             description={todo.description}
