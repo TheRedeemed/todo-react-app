@@ -13,8 +13,8 @@ const TodoList = () => {
     const getTodoListByUsername = (username) => {
         TodoDataService.getAllTodosByUsername(username)
                         .then(response => {
-                            //setLoadingMessage(false) 
-                            //setTodoList([...response.data])
+                            setLoadingMessage(false) 
+                            setTodoList([...response.data])
                         }).catch(() => { 
                             setLoadingMessage(false) 
                             setDisplayErrorMessage(true)
