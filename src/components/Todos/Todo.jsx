@@ -12,9 +12,11 @@ const Todo = ({...props}) => {
             padding: '15px'
         }}>
             <span>
-                <span style={{ fontWeight: 'bold' }}>Description: </span>{description}</span>
+                <span style={{ fontWeight: 'bold' }}>Description: </span>{description}
+            </span>
             <span>
-                <span style={{ fontWeight: 'bold' }}>Is Done: </span> {done.toString()}</span>
+                <span style={{ fontWeight: 'bold' }}>Is Done: </span> {done.toString()}
+            </span>
             <span>
                 <span style={{ fontWeight: 'bold' }}>Target Date:</span> {targetDate.toString()}
             </span>

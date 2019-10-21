@@ -3,12 +3,12 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import UserProfileMenu from '../UserProfile/UserProfileMenu'
-import AppHelpers from '../Utils/AppHelpers'
+import AuthenticationService from '../Services/AuthenticationService'
 import LogoutHelpers from '../Logout/LogoutHelpers'
 import { withRouter } from 'react-router-dom'
 
 const Header = ({...props}) => {
-    const isUserLoggedIn = AppHelpers.isUserLoggedIn()
+    const isUserLoggedIn = AuthenticationService.getLoggedInUserName()
     
     const handleLogoutClick = () => {
         LogoutHelpers.logout()

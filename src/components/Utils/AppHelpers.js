@@ -1,8 +1,5 @@
 
-const isUserLoggedIn = () => {
-    let userInfo = sessionStorage.getItem('authenticatedUser')
-    return userInfo ? userInfo : ''
-}
+const isUserLoggedIn = () => sessionStorage.getItem('authenticatedUser') ? true : false
 
 const AppHelpers = {
     isUserLoggedIn
