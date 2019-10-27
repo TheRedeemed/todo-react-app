@@ -1,5 +1,5 @@
 import React from 'react'
-import TodoList from '../Todos/TodoList'
+import TodoContainer from './TodoContainer'
 
 const WelcomePage = ({...props}) => {
     const { match } = props
@@ -7,7 +7,7 @@ const WelcomePage = ({...props}) => {
     return (
         <>
             <h1>Welcome {match.params.username}</h1>
-            <TodoList />
+            <TodoContainer />
         </>
     )
 }
