@@ -4,7 +4,18 @@ import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
 
 const Todo = ({...props}) => {
-    const { id, description, done, targetDate, onDeleteTodoClick } = props
+    const { id, description, done, targetDate, onEditTodoClick, onDeleteTodoClick } = props
+
+    const handleEditClick = () => {
+        const todoToBeEdited = {
+                                id: id,
+                                description: description,
+                                done: done,
+                                targetDate: targetDate
+                            }
+        onEditTodoClick(todoToBeEdited)
+    }
+
     return(
         <Card style={{
             display: 'flex',
@@ -35,7 +46,7 @@ const Todo = ({...props}) => {
                 justifyContent: 'space-between',
                 cursor: 'pointer'
             }}>
-                <Edit />
+                <Edit onClick={handleEditClick} />
                 <Delete onClick={() => onDeleteTodoClick(id)} />
             </div>
         </Card>
