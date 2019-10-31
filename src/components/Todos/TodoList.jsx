@@ -2,7 +2,7 @@ import React from 'react'
 import Todo from './Todo'
 
 const TodoList = ({...props}) => {
-    const { todoList, onDeleteTodoClick } = props
+    const { todoList, onEditTodoClick, onDeleteTodoClick } = props
 
     return(
         <div style={{
@@ -19,6 +19,7 @@ const TodoList = ({...props}) => {
                                         description={todo.description}
                                         done={todo.done}
                                         targetDate={todo.targetDate}
+                                        onEditTodoClick={onEditTodoClick}
                                         onDeleteTodoClick={onDeleteTodoClick}
                                     />
                             )

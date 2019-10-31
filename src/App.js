@@ -11,7 +11,7 @@ import AuthenticatedRoute from './components/Login/AuthenticatedRoute'
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Switch>
         <Route exact path='/' component={LoginForm} />
@@ -19,7 +19,7 @@ function App() {
         <Route path='/logout' component={LogoutPage} />
         <Route component={ErrorPage} />
       </Switch>
-    </div>
+    </>
   );
 }
 
