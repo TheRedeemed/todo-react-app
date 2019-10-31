@@ -2,19 +2,10 @@ import React from 'react'
 import Card from '@material-ui/core/Card'
 import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
+import AppHelpers from '../Utils/AppHelpers'
 
 const Todo = ({...props}) => {
     const { id, description, done, targetDate, onEditTodoClick, onDeleteTodoClick } = props
-
-    const handleEditClick = () => {
-        const todoToBeEdited = {
-                                id: id,
-                                description: description,
-                                done: done,
-                                targetDate: targetDate
-                            }
-        onEditTodoClick(todoToBeEdited)
-    }
 
     return(
         <Card style={{
@@ -26,7 +17,8 @@ const Todo = ({...props}) => {
         }}>
             <div style={{
                 display: 'flex',
-                flexFlow: 'column'
+                flexFlow: 'column',
+                width: '325px'
             }}>
                 <span>
                     <span style={{ fontWeight: 'bold' }}>Description: </span>{description}
@@ -35,7 +27,7 @@ const Todo = ({...props}) => {
                     <span style={{ fontWeight: 'bold' }}>Is Done: </span> {done.toString()}
                 </span>
                 <span>
-                    <span style={{ fontWeight: 'bold' }}>Target Date:</span> {targetDate.toString()}
+                    <span style={{ fontWeight: 'bold' }}>Target Date:</span> {AppHelpers.formatDate(targetDate)}
                 </span>
             </div>
             <div style={{
@@ -46,7 +38,7 @@ const Todo = ({...props}) => {
                 justifyContent: 'space-between',
                 cursor: 'pointer'
             }}>
-                <Edit onClick={handleEditClick} />
+                <Edit onClick={() => onEditTodoClick({ id, description, done, targetDate })} />
                 <Delete onClick={() => onDeleteTodoClick(id)} />
             </div>
         </Card>

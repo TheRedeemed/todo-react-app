@@ -7,13 +7,23 @@ const getAllTodosByUsername = () => {
     return Axios.get(`http://localhost:8080/users/${username}/todos`)
 }
 
-const deleteTodoById = (todoId) => {
-    return Axios.delete(`http://localhost:8080/users/${username}/todos/${todoId}`)
+const createTodo = (todo) => {
+    return Axios.post(`http://localhost:8080/users/${username}/todo`, todo)
+}
+
+const updateTodo = (todoId, todo) => {
+    return Axios.put(`http://localhost:8080/users/${username}/todo/${todoId}`, todo)
+}
+
+const deleteTodo = (todoId) => {
+    return Axios.delete(`http://localhost:8080/users/${username}/todo/${todoId}`)
 }
 
 const TodoDataService = {
     getAllTodosByUsername,
-    deleteTodoById
+    deleteTodo,
+    updateTodo,
+    createTodo
 }
 
 export default TodoDataService

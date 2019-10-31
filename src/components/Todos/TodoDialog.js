@@ -8,10 +8,18 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { Formik, Form } from 'formik'
 import TextField from '@material-ui/core/TextField'
-import moment from 'moment'
+import AppHelpers from '../Utils/AppHelpers'
 
  const TodoDialog = ({...props}) => {
-    const { displayTodoDialog, onCloseClick, todoDialogData } = props
+    const { displayTodoDialog, todoDialogData, onCloseClick, onConfirmClick } = props
+
+    // const isEditMode = Object.keys(todoDialogData).length === 0
+
+    const handleTodoFormSubmit = (data) => {
+        let todoData = {}
+        todoDialogData && todoDialogData.description ? todoData = {...data, id: todoDialogData.id} : todoData = data
+        onConfirmClick(todoData)
+    }
 
      return(
          <>
@@ -38,52 +46,78 @@ import moment from 'moment'
                     </span>
                 </MuiDialogTitle>
 
-                <MuiDialogContent dividers>
+                <MuiDialogContent >
                     <Formik
                         initialValues={{ 
                             description: todoDialogData && todoDialogData.description ? todoDialogData.description : '', 
-                            targetDate: todoDialogData && todoDialogData.targetDate ? moment(todoDialogData.targetDate).format('YYYY-MM-DD') : moment(new Date()).format('YYYY-MM-DD') 
+                            targetDate: todoDialogData && todoDialogData.targetDate ? AppHelpers.formatDate(todoDialogData.targetDate) : AppHelpers.formatDate(new Date())
+                        }}
+                        //add validation for fields - 
+                        //description: required, min length 5
+                        //date: required, valida date (use moment)
+                        onSubmit={(values, {setSubmitting}) => {
+                            setTimeout(() => setSubmitting(false), 3 * 1000)
+                            handleTodoFormSubmit(values)
                         }}
                     >
                         {
                             props => {
-                                const { values, handleChange, handleBlur } = props
+                                const { values, handleChange, handleBlur, isSubmitting } = props
                                 return(
-                                    <Form
-                                        style={{
-                                            display: 'flex',
-                                            flexFlow: 'column',
-                                            alignItems: 'center',
-                                            margin: '50px'
-                                        }}
-                                    >
-                                        <TextField
-                                            label='Description' 
-                                            name='description'
-                                            type='text'
-                                            placeholder='Enter Todo Description Here'
-                                            value={values.description}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
+                                    <Form>
+
+                                        <div 
                                             style={{
-                                                margin: '25px',
-                                                width: '100%'
+                                                display: 'flex',
+                                                flexFlow: 'column',
+                                                alignItems: 'center',
+                                                margin: '50px'
                                             }}
-                                        />
+                                        >
+                                            <TextField
+                                                label='Description' 
+                                                name='description'
+                                                type='text'
+                                                placeholder='Enter Todo Description Here'
+                                                value={values.description}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                style={{
+                                                    margin: '25px',
+                                                    width: '100%'
+                                                }}
+                                            />
+                                            
+                                            <TextField
+                                                label='Target Date' 
+                                                name='targetDate'
+                                                type='date'
+                                                placeholder='Enter Target Date Here'
+                                                value={values.targetDate}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                style={{
+                                                    margin: '25px',
+                                                    width: '100%'
+                                                }}
+                                            />
+                                        </div>
                                         
-                                        <TextField
-                                            label='Target Date' 
-                                            name='targetDate'
-                                            type='date'
-                                            placeholder='Enter Target Date Here'
-                                            value={values.targetDate}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            style={{
-                                                margin: '25px',
-                                                width: '100%'
-                                            }}
-                                        />
+                                        <MuiDialogActions>
+                                            <Button 
+                                                onClick={onCloseClick} 
+                                                color="secondary"
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <Button 
+                                                color="primary"
+                                                disabled={isSubmitting}
+                                                onClick={() => handleTodoFormSubmit(values)}
+                                            >
+                                                { todoDialogData && todoDialogData.description ? 'Save' : 'Create' }
+                                            </Button>
+                                        </MuiDialogActions>
 
                                     </Form>
                                 )
@@ -92,14 +126,7 @@ import moment from 'moment'
                     </Formik>
                 </MuiDialogContent>
 
-                <MuiDialogActions>
-                    <Button onClick={onCloseClick} color="secondary">
-                        Cancel
-                    </Button>
-                    <Button onClick={onCloseClick} color="primary">
-                        Create
-                    </Button>
-                </MuiDialogActions>
+                
             </Dialog>
       </>
      )

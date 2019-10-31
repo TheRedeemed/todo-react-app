@@ -19,6 +19,22 @@ const TodoContainer = () => {
     const [todoList, setTodoList] = useState([])
 
     const ERROR_MSG_LOADING_TODOLIST = 'An Error Occured While Loading Todo List'
+
+    const handleCreateTodo = (todoData) => {
+        TodoDataService.createTodo(todoData)
+                        .then((response) => {
+                            setTodoList([...todoList, response.data])
+                            setDisplayTodoDialog(!displayTodoDialog)
+                            setNotificationMessage('Todo Has Been Successfully Created!')
+                            setDisplayNotification(true)
+                            setNotificationVariant('success')
+                        }).catch((error) => {
+                            setDisplayTodoDialog(!displayTodoDialog)
+                            setNotificationMessage('An Error Occured Creating New Todo')
+                            setDisplayNotification(true)
+                            setNotificationVariant('error')
+                        })
+    }
     
     const getTodoListByUsername = () => {
         TodoDataService.getAllTodosByUsername()
@@ -33,21 +49,26 @@ const TodoContainer = () => {
                         }) 
     }
 
-    const handleDisplayPrompt = (todoId) => {
-        setDisplayPromt(!displayPrompt)
-        setPromptConfirmValue(todoId)
-    }
-
-    const handleDisplayTodoDialog = (todoObj) => {
-        // console.log(todoObj)
-        setDisplayTodoDialog(true)
-        setTodoDialogData(todoObj)
+    const handleUpdateTodo = (todoData) => {
+        TodoDataService.updateTodo(todoData.id, todoData)
+                        .then((response) => {
+                            setTodoList([...todoList, response.data])
+                            setDisplayTodoDialog(!displayTodoDialog)
+                            setNotificationMessage('Todo Has Been Successfully Updated!')
+                            setDisplayNotification(true)
+                            setNotificationVariant('success')
+                        }).catch(() => {
+                            setDisplayTodoDialog(!displayTodoDialog)
+                            setNotificationMessage('An Error Occured Updating Todo')
+                            setDisplayNotification(true)
+                            setNotificationVariant('error')
+                        })
     }
 
     const handleDeleteTodo = () => {
         const todoId = promptConfirmValue
         setDisplayPromt(!displayPrompt)
-        TodoDataService.deleteTodoById(todoId)
+        TodoDataService.deleteTodo(todoId)
                         .then(() => {
                             setTodoList([...todoList.filter(todo => (todo.id !== todoId))])
                             setNotificationMessage('Todo Has Been Successfully Deleted!')
@@ -58,6 +79,17 @@ const TodoContainer = () => {
                             setDisplayNotification(true)
                             setNotificationVariant('error')
                         })
+    }
+
+    const handleDisplayPrompt = (todoId) => {
+        setDisplayPromt(!displayPrompt)
+        setPromptConfirmValue(todoId)
+    }
+
+    const handleDisplayTodoDialog = (todoObj) => {
+        // console.log(todoObj)
+        setDisplayTodoDialog(!displayTodoDialog)
+        setTodoDialogData(todoObj)
     }
 
     useEffect(() => getTodoListByUsername(), [])
@@ -108,6 +140,7 @@ const TodoContainer = () => {
                 displayTodoDialog={displayTodoDialog} 
                 todoDialogData={todoDialogData}
                 onCloseClick={() => setDisplayTodoDialog(!displayTodoDialog)}
+                onConfirmClick={todoDialogData && todoDialogData.description ? handleUpdateTodo : handleCreateTodo }
             />
             
             <AppSnackbar
