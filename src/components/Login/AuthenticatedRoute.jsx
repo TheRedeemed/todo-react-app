@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import AppHelpers from '../Utils/AppHelpers'
+import AuthenticationService from '../Services/AuthenticationService'
 
 const AuthenticatedRoute = ({...props}) => {
-    return AppHelpers.isUserLoggedIn() ? <Route {...props} /> : <Redirect to='/' />
+    return AuthenticationService.isUserLoggedIn() ? <Route {...props} /> : <Redirect to='/' />
 }
 
 export default AuthenticatedRoute
