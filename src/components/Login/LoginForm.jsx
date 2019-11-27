@@ -25,9 +25,17 @@ const LoginForm = ({...props}) => {
                 onSubmit={(values, {setSubmitting}) => {
                     const {username, password} = values
                     setTimeout(() => setSubmitting(false), 3 * 1000)
-                    AuthenticationService.executeBasicAuthentication(username, password)
-                                         .then(() => {
-                                            AuthenticationService.registerSucessfulLogin(username, password)
+                    // AuthenticationService.executeBasicAuthentication(username, password)
+                    //                      .then(() => {
+                    //                         AuthenticationService.registerSucessfulLogin(username, password)
+                    //                         props.history.push(`/home/${username}`)
+                    //                      }).catch(() => {
+                    //                         setLoginErrorMessage('Invalid Credentials')
+                    //                      })
+
+                    AuthenticationService.executeJwtAuthentication(username, password)
+                                         .then((response) => {
+                                            AuthenticationService.registerSucessfulLoginForJwt(username, response.data.token)
                                             props.history.push(`/home/${username}`)
                                          }).catch(() => {
                                             setLoginErrorMessage('Invalid Credentials')
