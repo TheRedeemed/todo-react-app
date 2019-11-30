@@ -8,7 +8,7 @@ import LogoutHelpers from '../Logout/LogoutHelpers'
 import { withRouter } from 'react-router-dom'
 
 const Header = ({...props}) => {
-    const isUserLoggedIn = AuthenticationService.getLoggedInUserName()
+    const userInfo = AuthenticationService.getLoggedInUser()
     
     const handleLogoutClick = () => {
         LogoutHelpers.logout()
@@ -22,7 +22,7 @@ const Header = ({...props}) => {
                 justifyContent: 'space-between'
             }}>
                 <Typography variant='h6'>MY TODO</Typography>
-                {isUserLoggedIn && <UserProfileMenu userInfo={isUserLoggedIn} onLogoutClick={handleLogoutClick} />}
+                {userInfo && <UserProfileMenu userName={userInfo.userName} onLogoutClick={handleLogoutClick} />}
             </Toolbar>
         </AppBar>
     )
