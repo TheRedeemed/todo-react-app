@@ -1,23 +1,21 @@
-import Axios from "axios"
+import request from './ApiSetup'
 import AuthenticationService from '../Services/AuthenticationService'
 import {API_PATH_USER} from '../Utils/AppConstants'
 
-const username = AuthenticationService.getLoggedInUserName()
-
 const getAllTodosByUsername = () => {
-    return Axios.get(`${API_PATH_USER}${username}/todos`)
+    return request.get(`${API_PATH_USER}${AuthenticationService.getLoggedInUser().userName}/todos`)
 }
 
 const createTodo = (todo) => {
-    return Axios.post(`${API_PATH_USER}${username}/todo`, todo)
+    return request.post(`${API_PATH_USER}${AuthenticationService.getLoggedInUser().userName}/todo`, todo)
 }
 
 const updateTodo = (todoId, todo) => {
-    return Axios.put(`${API_PATH_USER}${username}/todo/${todoId}`, todo)
+    return request.put(`${API_PATH_USER}${AuthenticationService.getLoggedInUser().userName}/todo/${todoId}`, todo)
 }
 
 const deleteTodo = (todoId) => {
-    return Axios.delete(`${API_PATH_USER}${username}/todo/${todoId}`)
+    return request.delete(`${API_PATH_USER}${AuthenticationService.getLoggedInUser().userName}/todo/${todoId}`)
 }
 
 const TodoDataService = {

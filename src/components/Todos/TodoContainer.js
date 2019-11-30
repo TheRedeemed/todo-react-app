@@ -23,7 +23,8 @@ const TodoContainer = () => {
     const handleCreateTodo = (todoData) => {
         TodoDataService.createTodo(todoData)
                         .then((response) => {
-                            setTodoList([...todoList, response.data])
+                            // setTodoList([...todoList, response.data])
+                            getTodoListByUsername()
                             setDisplayTodoDialog(!displayTodoDialog)
                             setNotificationMessage('Todo Has Been Successfully Created!')
                             setDisplayNotification(true)
@@ -52,7 +53,8 @@ const TodoContainer = () => {
     const handleUpdateTodo = (todoData) => {
         TodoDataService.updateTodo(todoData.id, todoData)
                         .then((response) => {
-                            setTodoList([...todoList, response.data])
+                            // setTodoList([...todoList, response.data])
+                            getTodoListByUsername()
                             setDisplayTodoDialog(!displayTodoDialog)
                             setNotificationMessage('Todo Has Been Successfully Updated!')
                             setDisplayNotification(true)
@@ -70,7 +72,8 @@ const TodoContainer = () => {
         setDisplayPromt(!displayPrompt)
         TodoDataService.deleteTodo(todoId)
                         .then(() => {
-                            setTodoList([...todoList.filter(todo => (todo.id !== todoId))])
+                            // setTodoList([...todoList.filter(todo => (todo.id !== todoId))])
+                            getTodoListByUsername()
                             setNotificationMessage('Todo Has Been Successfully Deleted!')
                             setDisplayNotification(true)
                             setNotificationVariant('success')
@@ -87,7 +90,6 @@ const TodoContainer = () => {
     }
 
     const handleDisplayTodoDialog = (todoObj) => {
-        // console.log(todoObj)
         setDisplayTodoDialog(!displayTodoDialog)
         setTodoDialogData(todoObj)
     }

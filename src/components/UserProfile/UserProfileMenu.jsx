@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 
 const UserProfileMenu = ({...props}) => {
-    const { userInfo, onLogoutClick } = props
+    const { userName, onLogoutClick } = props
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
@@ -13,7 +13,7 @@ const UserProfileMenu = ({...props}) => {
 
     return(
         <>
-        <Avatar onClick={handleUserProfileMenuDisplay}>{userInfo && userInfo.charAt(0)}</Avatar>
+        <Avatar onClick={handleUserProfileMenuDisplay}>{userName && userName.charAt(0)}</Avatar>
         <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -28,7 +28,7 @@ const UserProfileMenu = ({...props}) => {
             open={open}
             onClose={handleUserProfileMenuClose}
         >
-            <MenuItem>{userInfo}</MenuItem>
+            <MenuItem>{userName}</MenuItem>
             <MenuItem onClick={() => onLogoutClick()}>Logout</MenuItem>
         </Menu>
         </>
